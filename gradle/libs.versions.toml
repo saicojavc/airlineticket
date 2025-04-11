@@ -47,6 +47,8 @@ retrofit-version = "2.11.0"
 okhttp3-interceptor-version = "5.0.0-alpha.14"
 firebaseCommon = "21.0.0"
 roomKtx = "2.7.0"
+googleGmsGoogleServices = "4.4.2"
+firebaseDatabase = "21.0.0"
 
 
 [libraries]
@@ -116,6 +118,7 @@ com-squareup-okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logg
 org-jetbrains-kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "android-corutines-kotlin" }
 firebase-common = { group = "com.google.firebase", name = "firebase-common", version.ref = "firebaseCommon" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -125,7 +128,8 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 android-library = { id = "com.android.library", version.ref = "agp" }
 com-dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "android-dagger-hilt" }
 com-google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.6" }  ## for lint detekt
+detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.6" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }  ## for lint detekt
 
 [bundles]
 com-retrofit = [
