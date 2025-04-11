@@ -99,4 +99,15 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.io.coil.kt)
+    implementation(libs.accompanist.pager.indicators)
+    implementation(libs.accompanist.pager)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.runtime.livedata)
+    implementation(libs.glide)
+    implementation("com.google.code.gson:gson:2.11.0")
+    implementation(libs.androidx.foundation)
+    implementation(libs.accompanist.systemuicontroller)
 }
