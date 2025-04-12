@@ -21,3 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "airlineticket"
 include(":app")
+include(":feature")
+include(":core")
+include(":feature:home")
+include(":core:ui")
