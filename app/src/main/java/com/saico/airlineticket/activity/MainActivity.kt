@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.saico.airlineticket.home.navigation.homeGraph
+import com.saico.airlineticket.splash.SplashScreen
 import com.saico.airlineticket.ui.navigation.Navigator
 import com.saico.airlineticket.ui.theme.AirlineticketTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,10 +53,11 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {
+                    SplashScreen()
 
-                    MainContainer(
-                        startDestination = viewModel.firstScreen,
-                    )
+//                    MainContainer(
+//                        startDestination = viewModel.firstScreen,
+//                    )
                 }
 
 
