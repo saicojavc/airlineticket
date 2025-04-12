@@ -73,6 +73,7 @@ android {
 dependencies {
     implementation(project(":core:ui"))
     implementation(project(":feature:home"))
+    implementation(project(":feature:login"))
 
     implementation(libs.androidx.lifecycle.runtime.compose.android)
     implementation(libs.androidx.navigation.common.ktx)

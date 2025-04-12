@@ -7,10 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -18,16 +15,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.saico.airlineticket.home.navigation.homeGraph
+import com.saico.airlineticket.login.navigation.loginGraph
 import com.saico.airlineticket.splash.SplashScreen
-import com.saico.airlineticket.ui.navigation.Navigator
 import com.saico.airlineticket.ui.theme.AirlineticketTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -43,21 +38,22 @@ class MainActivity : ComponentActivity() {
             var showSplashScreen by remember { mutableStateOf(true) }
 
             LaunchedEffect(Unit) {
-                delay(3000)
+                delay(2000)
                 showSplashScreen = false
             }
 
             AirlineticketTheme {
-               val navController = rememberNavController()
 
                 Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    SplashScreen()
-
-//                    MainContainer(
-//                        startDestination = viewModel.firstScreen,
-//                    )
+                    if (showSplashScreen){
+                        SplashScreen()
+                    }else{
+                        MainContainer(
+                            startDestination = viewModel.firstScreen,
+                        )
+                    }
                 }
 
 
@@ -80,6 +76,8 @@ private fun MainContainer(
             modifier = Modifier.weight(1.0f)
         ) {
             homeGraph(navController)
+
+            loginGraph(navController)
         }
     }
 }
