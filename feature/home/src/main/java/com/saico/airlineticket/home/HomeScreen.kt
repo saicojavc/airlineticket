@@ -111,9 +111,24 @@ fun Content(
 
                         from = selectedItem
                     }
+                    Text(
+                        text = "To",
+                        fontWeight = FontWeight.SemiBold,
+                        color = colorResource(id = R.color.orange),
+                    )
+                    DropDown(
+                        items = locationsNames,
+                        loadingIcon = painterResource(id = R.drawable.to_ic),
+                        hint = "Select destination",
+                        showLocationLoading = showLocationLoading
+                    ) { selectedItem ->
+
+                        from = selectedItem
+                    }
 
                 }
             }
+
         }
 
     }
