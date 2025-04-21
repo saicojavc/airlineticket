@@ -2,11 +2,16 @@ package com.saico.airlineticket.home
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigationItem
@@ -21,6 +26,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -29,6 +35,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.saico.airlineticket.domain.LocationModel
+import com.saico.airlineticket.home.component.DatePickerDialog
+import com.saico.airlineticket.home.component.PassengerCounter
 import com.saico.airlineticket.home.model.prepareBottomMenu
 import com.saico.airlineticket.ui.R
 import com.saico.airlineticket.ui.component.DropDown
@@ -70,6 +78,10 @@ fun Content(
     var from: String = ""
     var to: String = ""
     var classes: String = ""
+    var adultPassenger: String = ""
+    var childPassenger: String = ""
+
+    val classItem = listOf("Economy class", "Business class", "First class")
 
     Scaffold(
         bottomBar = {
@@ -89,7 +101,7 @@ fun Content(
             item {
                 Column(
                     modifier = Modifier
-                        .padding(32.dp)
+                        .padding(26.dp)
                         .background(
                             colorResource(id = R.color.darkPurple),
                             shape = RoundedCornerShape(20.dp)
@@ -97,6 +109,8 @@ fun Content(
                         .fillMaxWidth()
                         .padding(vertical = 16.dp, horizontal = 24.dp)
                 ) {
+
+                    //from section
                     Text(
                         text = "From",
                         fontWeight = FontWeight.SemiBold,
@@ -105,12 +119,17 @@ fun Content(
                     DropDown(
                         items = locationsNames,
                         loadingIcon = painterResource(id = R.drawable.from_ic),
-                        hint = "Select origin",
+                        hint = "Select Origin",
                         showLocationLoading = showLocationLoading
                     ) { selectedItem ->
 
                         from = selectedItem
                     }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    //to Section
+
                     Text(
                         text = "To",
                         fontWeight = FontWeight.SemiBold,
@@ -119,11 +138,76 @@ fun Content(
                     DropDown(
                         items = locationsNames,
                         loadingIcon = painterResource(id = R.drawable.to_ic),
-                        hint = "Select destination",
+                        hint = "Select Destination",
                         showLocationLoading = showLocationLoading
                     ) { selectedItem ->
 
-                        from = selectedItem
+                        to = selectedItem
+                    }
+
+                    // Passenger section
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "Passenger",
+                        fontWeight = FontWeight.SemiBold,
+                        color = colorResource(id = R.color.orange),
+                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    ) {
+                        PassengerCounter(
+                            title = "Adult",
+                            modifier = Modifier.weight(1f),
+                            onItemSelect = { adultPassenger = it }
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        PassengerCounter(
+                            title = "Child",
+                            modifier = Modifier.weight(1f),
+                            onItemSelect = { childPassenger = it }
+                        )
+                    }
+
+//                    calendar section
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = "Departure date",
+                            fontWeight = FontWeight.SemiBold,
+                            color = colorResource(id = R.color.orange),
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = "Return date",
+                            fontWeight = FontWeight.SemiBold,
+                            color = colorResource(id = R.color.orange),
+                        )
+                    }
+
+                    DatePickerDialog(
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // classes section
+                    Text(
+                        text = "Class",
+                        fontWeight = FontWeight.SemiBold,
+                        color = colorResource(id = R.color.orange),
+                    )
+                    DropDown(
+                        items = classItem,
+                        loadingIcon = painterResource(id = R.drawable.seat_black_ic),
+                        hint = "Select class",
+                        showLocationLoading = showLocationLoading
+                    ) { selectedItem ->
+
+                        classes = selectedItem
                     }
 
                 }
