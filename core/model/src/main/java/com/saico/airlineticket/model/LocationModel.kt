@@ -1,4 +1,4 @@
-package com.saico.airlineticket.domain
+package com.saico.airlineticket.model
 
 data class LocationModel(
     var Id:Int = 0,

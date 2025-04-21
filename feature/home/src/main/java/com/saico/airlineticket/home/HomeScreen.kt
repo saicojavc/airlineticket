@@ -34,7 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.saico.airlineticket.domain.LocationModel
+import com.saico.airlineticket.model.LocationModel
 import com.saico.airlineticket.home.component.DatePickerDialog
 import com.saico.airlineticket.home.component.PassengerCounter
 import com.saico.airlineticket.home.model.prepareBottomMenu

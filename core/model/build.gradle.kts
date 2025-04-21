@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.saico.airlineticket.domain"
+    namespace = "com.saico.airlineticket.model"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -33,8 +33,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:model"))
-    implementation(libs.firebase.database)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
