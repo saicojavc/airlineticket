@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.saico.airlineticket.home.navigation.homeGraph
-import com.saico.airlineticket.home.sea.navigation.searchGraph
+import com.saico.airlineticket.home.search.navigation.searchGraph
 import com.saico.airlineticket.login.navigation.loginGraph
 import com.saico.airlineticket.splash.SplashScreen
 import com.saico.airlineticket.ui.theme.AirlineticketTheme

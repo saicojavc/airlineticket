@@ -42,7 +42,7 @@ import com.saico.airlineticket.ui.R
 import com.saico.airlineticket.ui.component.DropDown
 import com.saico.airlineticket.ui.component.GradientButton
 import com.saico.airlineticket.ui.component.TopBar
-import com.saico.airlineticket.ui.navigation.routes.sea.SearhRoute
+import com.saico.airlineticket.ui.navigation.routes.sea.SearchRoute
 
 @Composable
 fun HomeScreen(
@@ -85,6 +85,13 @@ fun Content(
     var childPassenger: String = ""
 
     val classItem = listOf("Economy class", "Business class", "First class")
+
+    var show by remember { mutableStateOf(false) }
+
+    if (show){
+        Toast.makeText(LocalContext.current, "Please select all fields", Toast.LENGTH_SHORT).show()
+        show = false
+    }
 
     Scaffold(
         bottomBar = {
@@ -217,12 +224,23 @@ fun Content(
 
                     GradientButton(
                         onClick = {
-                            navController.navigate(
-                                SearhRoute.RootRoute.route
-                            )
+                            if (from.isEmpty() || to.isEmpty() || classes.isEmpty()){
+                                show = true
+                            }else{
+                                val from = from
+                                val to = to
+                                val classes = classes
+                                val adultPassenger = adultPassenger
+
+                                navController.navigate(
+                                    SearchRoute.SeaScreenRoute.createRoute(from, to, classes, adultPassenger)
+                                )
+                            }
+
                         },
                         text = "Search",
                     )
+
 
                 }
             }
