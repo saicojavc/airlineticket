@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
-import com.saico.airlineticket.login.component.GradientButton
+import com.saico.airlineticket.ui.component.GradientButton
 import com.saico.airlineticket.ui.R
 import com.saico.airlineticket.ui.navigation.routes.home.HomeRoute
 

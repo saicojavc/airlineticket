@@ -40,7 +40,9 @@ import com.saico.airlineticket.home.component.PassengerCounter
 import com.saico.airlineticket.home.model.prepareBottomMenu
 import com.saico.airlineticket.ui.R
 import com.saico.airlineticket.ui.component.DropDown
+import com.saico.airlineticket.ui.component.GradientButton
 import com.saico.airlineticket.ui.component.TopBar
+import com.saico.airlineticket.ui.navigation.routes.sea.SearhRoute
 
 @Composable
 fun HomeScreen(
@@ -64,13 +66,14 @@ fun HomeScreen(
     }
     Content(
         locationsNames = locationsNames,
-        showLocationLoading = showLocationLoading
-
+        showLocationLoading = showLocationLoading,
+navController = navController
     )
 }
 
 @Composable
 fun Content(
+    navController: NavHostController,
     locationsNames: List<String>,
     showLocationLoading: Boolean
 ) {
@@ -209,6 +212,17 @@ fun Content(
 
                         classes = selectedItem
                     }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    GradientButton(
+                        onClick = {
+                            navController.navigate(
+                                SearhRoute.RootRoute.route
+                            )
+                        },
+                        text = "Search",
+                    )
 
                 }
             }
