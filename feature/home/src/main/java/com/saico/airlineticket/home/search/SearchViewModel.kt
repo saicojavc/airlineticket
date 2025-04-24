@@ -9,6 +9,5 @@ class SearchViewModel {
 
     fun loadFiltered(from: String, to: String): LiveData<MutableList<FlightModel>> {
         return repository.loadFiltered(from, to)
-
     }
 }
