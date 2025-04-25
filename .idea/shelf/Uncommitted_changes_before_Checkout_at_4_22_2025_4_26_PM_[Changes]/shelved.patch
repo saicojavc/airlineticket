@@ -1,0 +1,19 @@
+Index: app/src/main/java/com/saico/airlineticket/activity/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.saico.airlineticket.activity\r\n\r\nimport android.os.Bundle\r\nimport androidx.activity.ComponentActivity\r\nimport androidx.activity.compose.setContent\r\nimport androidx.activity.enableEdgeToEdge\r\nimport androidx.activity.viewModels\r\nimport androidx.compose.foundation.layout.Column\r\nimport androidx.compose.foundation.layout.fillMaxSize\r\nimport androidx.compose.material3.Surface\r\nimport androidx.compose.runtime.Composable\r\nimport androidx.compose.runtime.LaunchedEffect\r\nimport androidx.compose.runtime.getValue\r\nimport androidx.compose.runtime.mutableStateOf\r\nimport androidx.compose.runtime.remember\r\nimport androidx.compose.runtime.setValue\r\nimport androidx.compose.ui.Modifier\r\nimport androidx.navigation.compose.NavHost\r\nimport androidx.navigation.compose.rememberNavController\r\nimport com.saico.airlineticket.home.navigation.homeGraph\r\nimport com.saico.airlineticket.login.navigation.loginGraph\r\nimport com.saico.airlineticket.search.navigation.searchGraph\r\nimport com.saico.airlineticket.splash.SplashScreen\r\nimport com.saico.airlineticket.ui.theme.AirlineticketTheme\r\nimport dagger.hilt.android.AndroidEntryPoint\r\nimport kotlinx.coroutines.delay\r\n\r\n@AndroidEntryPoint\r\nclass MainActivity : ComponentActivity() {\r\n\r\n    private val viewModel: MainActivityViewModel by viewModels()\r\n\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        enableEdgeToEdge()\r\n        setContent {\r\n\r\n            var showSplashScreen by remember { mutableStateOf(true) }\r\n\r\n            LaunchedEffect(Unit) {\r\n                delay(1000)\r\n                showSplashScreen = false\r\n            }\r\n\r\n            AirlineticketTheme {\r\n\r\n                Surface(\r\n                    modifier = Modifier.fillMaxSize()\r\n                ) {\r\n                    if (showSplashScreen){\r\n                        SplashScreen()\r\n                    }else{\r\n                        MainContainer(\r\n                            startDestination = viewModel.firstScreen,\r\n                        )\r\n                    }\r\n                }\r\n\r\n\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n@Composable\r\nprivate fun MainContainer(\r\n    startDestination: String,\r\n\r\n){\r\n    val navController = rememberNavController()\r\n\r\n    Column {\r\n        NavHost(\r\n            navController = navController,\r\n            startDestination = startDestination,\r\n            modifier = Modifier.weight(1.0f)\r\n        ) {\r\n            homeGraph(navController)\r\n\r\n            loginGraph(navController)\r\n\r\n//            searchGraph(navController)\r\n        }\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/saico/airlineticket/activity/MainActivity.kt b/app/src/main/java/com/saico/airlineticket/activity/MainActivity.kt
+--- a/app/src/main/java/com/saico/airlineticket/activity/MainActivity.kt	(revision 8d0464b4e670b08bae489c58577ff3836ab0558f)
++++ b/app/src/main/java/com/saico/airlineticket/activity/MainActivity.kt	(date 1745352610395)
+@@ -80,7 +80,7 @@
+ 
+             loginGraph(navController)
+ 
+-//            searchGraph(navController)
++            searchGraph(navController)
+         }
+     }
+ }
