@@ -183,7 +183,7 @@ fun FlightItem(
             .fillMaxWidth()
             .clickable {
                 navHostController.navigate(
-                    SeatRoute.SeatScreenRoute.route
+                    SeatRoute.SeatScreenRoute.createRoute(item)
                 )
             }
             .background(
