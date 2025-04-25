@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.saico.airlineticket.home.navigation.homeGraph
+import com.saico.airlineticket.home.search.navigation.searchGraph
 import com.saico.airlineticket.login.navigation.loginGraph
 import com.saico.airlineticket.splash.SplashScreen
 import com.saico.airlineticket.ui.theme.AirlineticketTheme
@@ -38,7 +39,7 @@ class MainActivity : ComponentActivity() {
             var showSplashScreen by remember { mutableStateOf(true) }
 
             LaunchedEffect(Unit) {
-                delay(2000)
+                delay(1000)
                 showSplashScreen = false
             }
 
@@ -78,6 +79,8 @@ private fun MainContainer(
             homeGraph(navController)
 
             loginGraph(navController)
+
+            searchGraph(navController)
         }
     }
 }

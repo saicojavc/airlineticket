@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1040922225701",
+    "project_id": "airlineticket-c9c92",
+    "storage_bucket": "airlineticket-c9c92.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1040922225701:android:fbff2a759debd4e451a3cc",
+        "android_client_info": {
+          "package_name": "com.saico.airlineticket.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIQHkFzkWNituv28beLEt3wE8XwmIOU50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
