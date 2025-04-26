@@ -1,12 +1,17 @@
 package com.saico.airlineticket.seat
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -17,8 +22,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -37,6 +43,7 @@ import com.saico.airlineticket.model.FlightModel
 import com.saico.airlineticket.seat.model.Seat
 import com.saico.airlineticket.seat.model.SeatStatus
 import com.saico.airlineticket.ui.R
+import com.saico.airlineticket.ui.component.GradientButton
 
 @Composable
 fun SeatScreen(
@@ -46,20 +53,25 @@ fun SeatScreen(
 
     Content(
         navHostController = navHostController,
-        flight = flight
+        flight = flight,
+        onConfirm = {
+
+        }
     )
 }
 
 @Composable
 fun Content(
     navHostController: NavHostController,
-    flight: FlightModel
-) {
+    flight: FlightModel,
+    onConfirm: (FlightModel) -> Unit,
+
+    ) {
     val seatList = remember { mutableStateListOf<Seat>() }
     val selectedSeatNames = remember { mutableStateListOf<String>() }
 
-    var seatCount by remember { mutableStateOf(0) }
-    var totalPrice by remember { mutableStateOf(0.0) }
+    var seatCount by remember { mutableIntStateOf(0) }
+    var totalPrice by remember { mutableDoubleStateOf(0.0) }
 
     LaunchedEffect(flight) {
         seatList.clear()
@@ -67,6 +79,7 @@ fun Content(
         seatCount = selectedSeatNames.size
         totalPrice = seatCount * flight.Price
     }
+
 
     fun updatePriceAndCount() {
         seatCount = selectedSeatNames.size
@@ -124,6 +137,12 @@ fun Content(
             ) {
                 items(seatList.size) { index ->
                     val seat = seatList[index]
+                    val backgroundColor = when (seat.status) {
+                        SeatStatus.AVAILABLE -> colorResource(id = R.color.green)
+                        SeatStatus.SELECTED -> colorResource(id = R.color.orange)
+                        SeatStatus.UNAVAILABLE -> colorResource(id = R.color.grey)
+                        SeatStatus.EMPTY -> Color.Transparent
+                    }
                     SeatItem(
                         seat = seat,
                         onSeatClick = {
@@ -149,17 +168,30 @@ fun Content(
 
             }
         }
-            BottomSection(
-                seatCount = seatCount,
-                selectedSeats = selectedSeatNames.joinToString(", "),
-                totalPrice = totalPrice,
-                onSeatClick = {
-                   if (seatCount>0){
-
-                   }
-                },
-                modifier = Modifier
-            )
+        BottomSection(
+            seatCount = seatCount,
+            selectedSeats = selectedSeatNames.joinToString(", "),
+            totalPrice = totalPrice,
+            onSeatClick = {
+                if (seatCount > 0) {
+                    flight.Passenger = selectedSeatNames.joinToString { ", " }
+                    flight.Price = totalPrice
+                    onConfirm(flight)
+                } else {
+                    Toast.makeText(
+                        navHostController.context,
+                        "Please select your seat",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            },
+            modifier = Modifier
+                .constrainAs(bottomSection) {
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
+        )
     }
 }
 
@@ -171,6 +203,59 @@ fun BottomSection(
     onSeatClick: () -> Unit,
     modifier: Modifier
 ) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(180.dp)
+            .background(colorResource(id = R.color.darkPurple))
+            .padding(vertical = 16.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            LegendItem(text = "Available", color = colorResource(id = R.color.green))
+            LegendItem(text = "Selected", color = colorResource(id = R.color.orange))
+            LegendItem(text = "Unavailable", color = colorResource(id = R.color.grey))
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column {
+                Text(
+                    text = "$seatCount Seats Selected",
+                    color = Color.White,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = if (selectedSeats.isBlank())"+" else selectedSeats,
+                    color = Color.White,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            Text(
+                text = "$${String.format("%.0f", totalPrice)}",
+                color = colorResource(id = R.color.orange),
+                fontSize = 25.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+        }
+        GradientButton(
+            onClick = onSeatClick,
+            text = "Confirm Seats"
+        )
+    }
+
 }
 
 @Composable
@@ -216,7 +301,7 @@ fun SeatItem(
     }
 
     val clickableEnabled = seat.status == SeatStatus.AVAILABLE || seat.status == SeatStatus.SELECTED
-
+    println(seat.status)
     Box(
         modifier = Modifier
             .size(28.dp)
