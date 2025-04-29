@@ -179,7 +179,7 @@ fun Content(
                     flight.Price = totalPrice
                     onConfirm(flight)
                     navHostController.navigate(
-                        DetailRoute.RootRoute.route
+                        DetailRoute.DetailScreenRoute.createRoute(flight)
                     )
                 } else {
                     Toast.makeText(
