@@ -4,20 +4,16 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -28,8 +24,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester.Companion.createRefs
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -42,6 +38,7 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.saico.airlineticket.ui.R
 import com.saico.airlineticket.model.FlightModel
+import com.saico.airlineticket.ui.navigation.routes.seat.SeatRoute
 
 @Composable
 fun SearchScreen(
@@ -63,10 +60,6 @@ fun SearchScreen(
 
 
     Content(
-        from = from,
-        to = to,
-        classes = classes,
-        adultPassenger = adultPassenger,
         items = items,
         navController = navController
     )
@@ -74,10 +67,6 @@ fun SearchScreen(
 
 @Composable
 fun Content(
-    from: String,
-    to: String,
-    classes: String,
-    adultPassenger: String,
     items: List<FlightModel>,
     navController: NavHostController
 ) {
@@ -87,16 +76,8 @@ fun Content(
         if (items.isNotEmpty()) {
             isLoading = false
         }
-//        isLoading = items.isEmpty()
     }
 
-//    Scaffold { paddingValues ->
-//        Column(
-//            modifier = Modifier
-//                .background(color = colorResource(id = R.color.darkPurple2))
-//                .padding(paddingValues),
-//            verticalArrangement = Arrangement.SpaceBetween
-//        ) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -158,30 +139,29 @@ fun Content(
             itemsIndexed(items) { index, item ->
                 FlightItem(
                     item = item,
-                    index = index
+                    navHostController = navController
                 )
             }
         }
     }
 
-//        }
-//
-//    }
-
-
 }
 
 @SuppressLint("DefaultLocale")
 @Composable
-fun FlightItem(item: FlightModel, index: Int) {
-    val context = LocalContext.current
+fun FlightItem(
+    item: FlightModel,
+    navHostController: NavHostController
+) {
 
     ConstraintLayout(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth()
             .clickable {
-
+                navHostController.navigate(
+                    SeatRoute.SeatScreenRoute.createRoute(item)
+                )
             }
             .background(
                 color = colorResource(id = R.color.lightPurple),
@@ -236,7 +216,8 @@ fun FlightItem(item: FlightModel, index: Int) {
                     start.linkTo(parent.start)
                     top.linkTo(airplaneIcon.bottom)
                     end.linkTo(parent.end)
-                }
+                },
+            contentScale = ContentScale.FillWidth
         )
         Text(
             text = "$${String.format("%.2f", item.Price)}",
