@@ -44,6 +44,7 @@ import com.saico.airlineticket.seat.model.Seat
 import com.saico.airlineticket.seat.model.SeatStatus
 import com.saico.airlineticket.ui.R
 import com.saico.airlineticket.ui.component.GradientButton
+import com.saico.airlineticket.ui.navigation.routes.ticket_detail.DetailRoute
 
 @Composable
 fun SeatScreen(
@@ -177,6 +178,9 @@ fun Content(
                     flight.Passenger = selectedSeatNames.joinToString { ", " }
                     flight.Price = totalPrice
                     onConfirm(flight)
+                    navHostController.navigate(
+                        DetailRoute.RootRoute.route
+                    )
                 } else {
                     Toast.makeText(
                         navHostController.context,

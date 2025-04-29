@@ -22,6 +22,7 @@ import com.saico.airlineticket.home.search.navigation.searchGraph
 import com.saico.airlineticket.login.navigation.loginGraph
 import com.saico.airlineticket.seat.navigation.seatGraph
 import com.saico.airlineticket.splash.SplashScreen
+import com.saico.airlineticket.ticket_detail.navigation.detailGraph
 import com.saico.airlineticket.ui.theme.AirlineticketTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -84,6 +85,8 @@ private fun MainContainer(
             searchGraph(navController)
 
             seatGraph(navController)
+
+            detailGraph(navController)
         }
     }
 }
