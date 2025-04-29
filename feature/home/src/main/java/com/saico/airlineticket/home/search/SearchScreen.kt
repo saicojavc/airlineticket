@@ -60,10 +60,6 @@ fun SearchScreen(
 
 
     Content(
-        from = from,
-        to = to,
-        classes = classes,
-        adultPassenger = adultPassenger,
         items = items,
         navController = navController
     )
@@ -71,10 +67,6 @@ fun SearchScreen(
 
 @Composable
 fun Content(
-    from: String,
-    to: String,
-    classes: String,
-    adultPassenger: String,
     items: List<FlightModel>,
     navController: NavHostController
 ) {
@@ -84,16 +76,8 @@ fun Content(
         if (items.isNotEmpty()) {
             isLoading = false
         }
-//        isLoading = items.isEmpty()
     }
 
-//    Scaffold { paddingValues ->
-//        Column(
-//            modifier = Modifier
-//                .background(color = colorResource(id = R.color.darkPurple2))
-//                .padding(paddingValues),
-//            verticalArrangement = Arrangement.SpaceBetween
-//        ) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -155,17 +139,11 @@ fun Content(
             itemsIndexed(items) { index, item ->
                 FlightItem(
                     item = item,
-                    index = index,
                     navHostController = navController
                 )
             }
         }
     }
-
-//        }
-//
-//    }
-
 
 }
 
@@ -173,10 +151,8 @@ fun Content(
 @Composable
 fun FlightItem(
     item: FlightModel,
-    index: Int,
     navHostController: NavHostController
 ) {
-    val context = LocalContext.current
 
     ConstraintLayout(
         modifier = Modifier
