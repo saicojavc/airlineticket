@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -239,7 +240,8 @@ fun FlightItem(
                     start.linkTo(parent.start)
                     top.linkTo(airplaneIcon.bottom)
                     end.linkTo(parent.end)
-                }
+                },
+            contentScale = ContentScale.FillWidth
         )
         Text(
             text = "$${String.format("%.2f", item.Price)}",
