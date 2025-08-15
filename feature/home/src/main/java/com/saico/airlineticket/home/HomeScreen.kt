@@ -67,7 +67,7 @@ fun HomeScreen(
     Content(
         locationsNames = locationsNames,
         showLocationLoading = showLocationLoading,
-navController = navController
+        navController = navController
     )
 }
 
@@ -88,7 +88,7 @@ fun Content(
 
     var show by remember { mutableStateOf(false) }
 
-    if (show){
+    if (show) {
         Toast.makeText(LocalContext.current, "Please select all fields", Toast.LENGTH_SHORT).show()
         show = false
     }
@@ -224,16 +224,21 @@ fun Content(
 
                     GradientButton(
                         onClick = {
-                            if (from.isEmpty() || to.isEmpty() || classes.isEmpty()){
+                            if (from.isEmpty() || to.isEmpty() || classes.isEmpty()) {
                                 show = true
-                            }else{
+                            } else {
                                 val from = from
                                 val to = to
                                 val classes = classes
                                 val adultPassenger = adultPassenger
 
                                 navController.navigate(
-                                    SearchRoute.SeaScreenRoute.createRoute(from, to, classes, adultPassenger)
+                                    SearchRoute.SeaScreenRoute.createRoute(
+                                        from,
+                                        to,
+                                        classes,
+                                        adultPassenger
+                                    )
                                 )
                             }
 
